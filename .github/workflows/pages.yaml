@@ -1,35 +1,25 @@
-name: Github Pages Deploy
+name: GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches:
+      - main
+  pull_request:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-22.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          cargo install dioxus-cli
-          dx build --release
-      - uses: actions/upload-artifact@v3
         with:
-          name: my_site
-          path: dist
-      - uses: actions/upload-pages-artifact@v1
+          submodules: true
+          fetch-depth: 0
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          path: dist
-          
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    permissions:
-      pages: write
-      id-token: write
-    steps:
-      - uses: actions/deploy-pages@v1
-        id: deployment
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
