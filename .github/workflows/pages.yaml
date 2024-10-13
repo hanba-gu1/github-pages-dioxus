@@ -14,8 +14,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       # - uses: actions/checkout@v4
       #   with:
@@ -25,7 +23,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: build
+          path: ./
   deploy:
     needs: build
     permissions:
