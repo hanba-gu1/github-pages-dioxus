@@ -18,6 +18,8 @@ asset_dir = "assets"
 # HTML title tag content
 title = "github-pages-dioxus"
 
+base_path = "github-pages-dioxus"
+
 [web.watcher]
 
 # when watcher trigger, regenerate the `index.html`
