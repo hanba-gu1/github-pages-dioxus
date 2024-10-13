@@ -22,7 +22,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: page
+          path: dist
   deploy:
     needs: build
     permissions:
