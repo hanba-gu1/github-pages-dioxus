@@ -15,15 +15,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v4
-      #   with:
-      #     submodules: true
-      #     fetch-depth: 0
-      - run: echo "<h1>hello world</h1>" > index.html
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
 
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: ./
+          path: dist
   deploy:
     needs: build
     permissions:
