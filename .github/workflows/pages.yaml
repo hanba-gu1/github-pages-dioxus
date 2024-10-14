@@ -20,6 +20,7 @@ jobs:
           submodules: true
           fetch-depth: 0
       - run: |
+          npx tailwindcss -i ./input.css -o ./assets/tailwind.css
           cargo install dioxus-cli
           dx build --release
           mv dist/index.html dist/404.html
