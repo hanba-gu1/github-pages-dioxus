@@ -12,9 +12,11 @@ enum Route {
 }
 
 fn main() {
-    // Init logger
-    dioxus_logger::init(Level::INFO).expect("failed to init logger");
-    info!("starting app");
+    if cfg!(debug_assertions) {
+        // Init logger
+        dioxus_logger::init(Level::INFO).expect("failed to init logger");
+        info!("starting app");
+    }
     launch(App);
 }
 
