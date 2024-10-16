@@ -49,6 +49,9 @@ fn Blog(id: i32) -> Element {
 fn Home() -> Element {
     let mut count = use_signal(|| 0);
 
+    let a = 1;
+    println!("{a}");
+
     rsx! {
         Link {
             class: "inline-block rounded p-1 m-2 border border-indigo-400 bg-indigo-200",
@@ -66,15 +69,15 @@ fn Home() -> Element {
                     "{count}"
                 }
             }
-            button {
-                class: "inline-block rounded p-1 m-2 border border-pink-400 bg-pink-200",
-                onclick: move |_| count += 1, 
-                "Up high!"
-            }
-            button {
-                class: "inline-block rounded p-1 m-2 border border-green-400 bg-green-200",
-                onclick: move |_| count -= 1,
-                "Down low!"
+            for (text, color, d) in [
+                ("Up high!", "pink", 1),
+                ("Down low!", "green", -1)
+            ] { 
+                button {
+                    class: "inline-block rounded p-1 m-2 border border-{color}-400 bg-{color}-200",
+                    onclick: move |_| count += d,
+                    "{text}"
+                }
             }
         }
     }
